@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 400;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        color: #f90;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .container {
+        border: 2px solid #ddd;
+        width: 20em;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-left: 355px;
+      }
+      ::placeholder {
+        text-align: center;
+      }
+      .form {
+        margin-bottom: 20px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .btn,
+      .btn2 {
+        width: 80px;
+        height: 35px;
+        margin: 10px 5px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover,
+      .btn2:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Password Generator</h1>
+    <div class="container">
+      <form class="form">
+        <input
+          type="text"
+          placeholder="Generated password"
+          class="input-field"
+          id="input"
+        />
+      </form>
+      <button class="btn" id="generateBtn">Generate</button>
+      <button class="btn2" id="copyBtn">Copy</button>
+    </div>
+
+    <script>
+      const Passwordbox = document.querySelector("#input");
+      const generateBtn = document.querySelector("#generateBtn");
+      const copyBtn = document.querySelector("#copyBtn");
+
+      const length = 12;
+      const lowercase = "abcdefghijklmnopqrstuvwxyz";
+      const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const number = "1234567890";
+      const symbol = "!@#$%^&*~";
+      const allchar = lowercase + uppercase + symbol + number;
+
+      generateBtn.addEventListener("click", () => {
+        let password = "";
+        password += lowercase[Math.floor(Math.random() * lowercase.length)];
+        password += uppercase[Math.floor(Math.random() * uppercase.length)];
+        password += number[Math.floor(Math.random() * number.length)];
+        password += symbol[Math.floor(Math.random() * symbol.length)];
+
+        while (length > password.length) {
+          password += allchar[Math.floor(Math.random() * allchar.length)];
+        }
+
+        Passwordbox.value = password;
+        console.log(password);
+      });
+
+      copyBtn.addEventListener("click", () => {
+        Passwordbox.select();
+        document.execCommand("copy");
+        console.log("Password copied: " + Passwordbox.value);
+      });
+    </script>
+  </body>
+</html>
